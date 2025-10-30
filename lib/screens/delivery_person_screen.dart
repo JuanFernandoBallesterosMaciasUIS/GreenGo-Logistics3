@@ -6,7 +6,12 @@ import '../config/theme.dart';
 import 'package:intl/intl.dart';
 
 class DeliveryPersonScreen extends StatefulWidget {
-  const DeliveryPersonScreen({super.key});
+  final String deliveryPersonName;
+
+  const DeliveryPersonScreen({
+    super.key,
+    required this.deliveryPersonName,
+  });
 
   @override
   State<DeliveryPersonScreen> createState() => _DeliveryPersonScreenState();
@@ -20,9 +25,17 @@ class _DeliveryPersonScreenState extends State<DeliveryPersonScreen> {
     final theme = Theme.of(context);
     final provider = context.watch<DeliveryProvider>();
 
+    // Filtrar entregas solo del repartidor seleccionado
+    final personDeliveries =
+        provider.getDeliveriesForPerson(widget.deliveryPersonName);
+
     final displayDeliveries = _showPending
-        ? provider.pendingDeliveries
-        : provider.completedDeliveries;
+        ? personDeliveries
+            .where((d) => d.status == DeliveryStatus.pending)
+            .toList()
+        : personDeliveries
+            .where((d) => d.status == DeliveryStatus.completed)
+            .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +43,7 @@ class _DeliveryPersonScreenState extends State<DeliveryPersonScreen> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Mis entregas'),
+        title: Text('Entregas de ${widget.deliveryPersonName}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh_rounded),
@@ -148,7 +161,7 @@ class _SegmentButton extends StatelessWidget {
   }
 }
 
-class _DeliveryCard extends StatelessWidget {
+class _DeliveryCard extends StatefulWidget {
   final Delivery delivery;
   final VoidCallback onComplete;
 
@@ -157,8 +170,60 @@ class _DeliveryCard extends StatelessWidget {
     required this.onComplete,
   });
 
+  @override
+  State<_DeliveryCard> createState() => _DeliveryCardState();
+}
+
+class _DeliveryCardState extends State<_DeliveryCard>
+    with TickerProviderStateMixin {
+  late AnimationController _completeAnimationController;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _rotateAnimation;
+  late bool _wasCompleted;
+
+  @override
+  void initState() {
+    super.initState();
+    // Guardamos el estado inicial para determinar la dirección correcta del slide
+    _wasCompleted = widget.delivery.status == DeliveryStatus.completed;
+
+    // Animación de completado solo con slide y rotación del botón
+    _completeAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    _updateSlideAnimation();
+
+    _rotateAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+          parent: _completeAnimationController, curve: Curves.elasticOut),
+    );
+  }
+
+  void _updateSlideAnimation() {
+    // La dirección del slide depende de si estamos completando o desmarcando:
+    // - Si _wasCompleted es false (es pendiente): desliza a la DERECHA (Offset.x = 1.0)
+    // - Si _wasCompleted es true (es completada): desliza a la IZQUIERDA (Offset.x = -1.0)
+    final slideDirection = _wasCompleted
+        ? const Offset(-1.0, 0.0) // Izquierda para desmarcar
+        : const Offset(1.0, 0.0); // Derecha para completar
+
+    _slideAnimation =
+        Tween<Offset>(begin: Offset.zero, end: slideDirection).animate(
+      CurvedAnimation(
+          parent: _completeAnimationController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _completeAnimationController.dispose();
+    super.dispose();
+  }
+
   IconData _getCategoryIcon() {
-    switch (delivery.category) {
+    switch (widget.delivery.category) {
       case 'restaurant':
         return Icons.restaurant_menu_rounded;
       case 'cafe':
@@ -170,129 +235,163 @@ class _DeliveryCard extends StatelessWidget {
     }
   }
 
+  void _handleComplete() {
+    // Antes de animar, actualizamos la dirección para la siguiente acción
+    // porque después de this.onComplete(), el estado cambiará
+    final currentlyCompleted =
+        widget.delivery.status == DeliveryStatus.completed;
+
+    _completeAnimationController.forward().then((_) {
+      widget.onComplete();
+      // Después del cambio de estado, invertimos _wasCompleted para la próxima animación
+      _wasCompleted = !currentlyCompleted;
+      _updateSlideAnimation();
+      _completeAnimationController.reset();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isCompleted = delivery.status == DeliveryStatus.completed;
+    final isCompleted = widget.delivery.status == DeliveryStatus.completed;
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: isCompleted
-            ? theme.colorScheme.surface.withOpacity(0.7)
-            : theme.colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Icono de categoría
-          Container(
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: isCompleted
-                  ? AppTheme.primary.withOpacity(0.2)
-                  : theme.brightness == Brightness.light
-                      ? Colors.grey[100]
-                      : Colors.grey[800],
+    return SlideTransition(
+      position: _slideAnimation,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: isCompleted
+              ? theme.colorScheme.surface.withOpacity(0.7)
+              : theme.colorScheme.surface,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
-            child: Icon(
-              isCompleted ? Icons.task_alt_rounded : _getCategoryIcon(),
-              color: isCompleted ? AppTheme.primary : theme.iconTheme.color,
-              size: 28,
-            ),
-          ),
-          const SizedBox(width: 16),
-          // Información del pedido
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Pedido #${delivery.id} - ${delivery.customerName}',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    decoration: isCompleted ? TextDecoration.lineThrough : null,
-                    color: isCompleted
-                        ? theme.textTheme.bodyMedium?.color?.withOpacity(0.5)
-                        : null,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  isCompleted && delivery.completedAt != null
-                      ? 'Entregada a las ${DateFormat('h:mm a').format(delivery.completedAt!)}'
-                      : 'Entrega antes de ${DateFormat('h:mm a').format(delivery.deadline)}',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Asignado a: ${delivery.deliveryPerson}',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                RichText(
-                  text: TextSpan(
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color:
-                          theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
-                      decoration:
-                          isCompleted ? TextDecoration.lineThrough : null,
-                    ),
-                    children: [
-                      TextSpan(text: 'De: ${delivery.fromLocation}\n'),
-                      const TextSpan(text: 'A: '),
-                      TextSpan(
-                        text: delivery.toLocation,
-                        style: const TextStyle(
-                          color: AppTheme.accentBlue,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 12),
-          // Botón de completar
-          GestureDetector(
-            onTap: onComplete,
-            child: Container(
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Icono de categoría
+            Container(
               height: 48,
               width: 48,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(12),
                 color: isCompleted
-                    ? AppTheme.primary
-                    : AppTheme.primary.withOpacity(0.2),
-                border: Border.all(
-                  color: AppTheme.primary,
-                  width: 2,
-                ),
+                    ? AppTheme.primary.withOpacity(0.2)
+                    : theme.brightness == Brightness.light
+                        ? Colors.grey[100]
+                        : Colors.grey[800],
               ),
               child: Icon(
-                Icons.check_rounded,
-                color: isCompleted ? Colors.white : AppTheme.primary,
+                _getCategoryIcon(),
+                color: isCompleted ? AppTheme.primary : theme.iconTheme.color,
                 size: 28,
               ),
             ),
+            const SizedBox(width: 16),
+            // Información del pedido
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pedido #${widget.delivery.id} - ${widget.delivery.customerName}',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      decoration:
+                          isCompleted ? TextDecoration.lineThrough : null,
+                      color: isCompleted
+                          ? theme.textTheme.bodyMedium?.color?.withOpacity(0.5)
+                          : null,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    isCompleted && widget.delivery.completedAt != null
+                        ? 'Entregada a las ${DateFormat('h:mm a').format(widget.delivery.completedAt!)}'
+                        : 'Entrega antes de ${DateFormat('h:mm a').format(widget.delivery.deadline)}',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color:
+                          theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Asignado a: ${widget.delivery.deliveryPerson}',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color:
+                          theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  RichText(
+                    text: TextSpan(
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color:
+                            theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
+                        decoration:
+                            isCompleted ? TextDecoration.lineThrough : null,
+                      ),
+                      children: [
+                        TextSpan(text: 'De: ${widget.delivery.fromLocation}\n'),
+                        const TextSpan(text: 'A: '),
+                        TextSpan(
+                          text: widget.delivery.toLocation,
+                          style: const TextStyle(
+                            color: AppTheme.accentBlue,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            // Botón de completar con animación
+            _buildCompleteButton(isCompleted),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCompleteButton(bool isCompleted) {
+    return RotationTransition(
+      turns: _rotateAnimation,
+      child: GestureDetector(
+        onTap: _handleComplete,
+        child: Container(
+          height: 48,
+          width: 48,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isCompleted ? AppTheme.primary : Colors.grey[300],
+            border: Border.all(
+              color: isCompleted ? AppTheme.primary : Colors.grey[400]!,
+              width: 2,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: (isCompleted ? AppTheme.primary : Colors.grey[400]!)
+                    .withOpacity(0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-        ],
+          child: Icon(
+            Icons.check_rounded,
+            color: isCompleted ? Colors.white : Colors.grey[600],
+            size: 28,
+          ),
+        ),
       ),
     );
   }
