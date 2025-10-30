@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'delivery_person_screen.dart';
+import 'delivery_person_selection_screen.dart';
 import 'supervisor_screen.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
@@ -59,7 +59,8 @@ class RoleSelectionScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const DeliveryPersonScreen(),
+                      builder: (context) =>
+                          const DeliveryPersonSelectionScreen(),
                     ),
                   );
                 },

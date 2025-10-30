@@ -6,7 +6,12 @@ import '../config/theme.dart';
 import 'package:intl/intl.dart';
 
 class DeliveryPersonScreen extends StatefulWidget {
-  const DeliveryPersonScreen({super.key});
+  final String deliveryPersonName;
+
+  const DeliveryPersonScreen({
+    super.key,
+    required this.deliveryPersonName,
+  });
 
   @override
   State<DeliveryPersonScreen> createState() => _DeliveryPersonScreenState();
@@ -20,9 +25,17 @@ class _DeliveryPersonScreenState extends State<DeliveryPersonScreen> {
     final theme = Theme.of(context);
     final provider = context.watch<DeliveryProvider>();
 
+    // Filtrar entregas solo del repartidor seleccionado
+    final personDeliveries =
+        provider.getDeliveriesForPerson(widget.deliveryPersonName);
+
     final displayDeliveries = _showPending
-        ? provider.pendingDeliveries
-        : provider.completedDeliveries;
+        ? personDeliveries
+            .where((d) => d.status == DeliveryStatus.pending)
+            .toList()
+        : personDeliveries
+            .where((d) => d.status == DeliveryStatus.completed)
+            .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +43,7 @@ class _DeliveryPersonScreenState extends State<DeliveryPersonScreen> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Mis entregas'),
+        title: Text('Entregas de ${widget.deliveryPersonName}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh_rounded),
