@@ -1,5 +1,11 @@
 # GreenGo Logistics - Aplicación Flutter
 
+## Video Explicativo
+
+[![Video de demostración de GreenGo Logistics](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+
+*Haz clic en la imagen para ver una demostración en video de la aplicación*
+
 ## Descripción
 
 GreenGo Logistics es una aplicación de gestión de entregas sostenibles desarrollada en Flutter. Permite a los repartidores en bicicleta gestionar sus entregas y a los supervisores monitorear el progreso en tiempo real.
