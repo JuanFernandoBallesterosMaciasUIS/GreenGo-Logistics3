@@ -290,9 +290,7 @@ class _DeliveryCard extends StatelessWidget {
               width: 48,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isCompleted
-                    ? AppTheme.primary
-                    : Colors.grey[300],
+                color: isCompleted ? AppTheme.primary : Colors.grey[300],
                 border: Border.all(
                   color: isCompleted ? AppTheme.primary : Colors.grey[400]!,
                   width: 2,
