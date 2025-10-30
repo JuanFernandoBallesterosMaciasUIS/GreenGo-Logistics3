@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GreenGo Logistics - Entregas en vivo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4CAF50",
+              "accent": "#FFC107",
+              "alert": "#F44336",
+              "background-light": "#F5F5F5",
+              "background-dark": "#1a1a1a",
+              "text-light": "#333333",
+              "text-dark": "#E0E0E0",
+              "card-light": "#FFFFFF",
+              "card-dark": "#2C2C2C",
+              "border-light": "#E0E0E0",
+              "border-dark": "#424242",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-10 flex items-center bg-card-light/80 dark:bg-card-dark/80 backdrop-blur-sm p-4 pb-2 justify-between border-b border-border-light dark:border-border-dark">
+<div class="flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-text-light dark:text-text-dark text-2xl">
+                    menu
+                </span>
+</div>
+<h1 class="text-text-light dark:text-text-dark text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Entregas en vivo</h1>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-text-light dark:text-text-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined text-text-light dark:text-text-dark text-2xl">
+                        refresh
+                    </span>
+</button>
+</div>
+</header>
+<main class="flex-1">
+<!-- Stats Section -->
+<section class="flex flex-wrap gap-3 p-4">
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark">
+            <p class="text-text-light/80 dark:text-text-dark/80 text-sm font-medium leading-normal">Total</p>
+<p class="text-text-light dark:text-text-dark tracking-light text-2xl font-bold leading-tight">86</p>
+</div>
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-card-light dark:bg-card-dark border border-accent/50 dark:border-accent">
+            <p class="text-accent text-sm font-medium leading-normal">Pendientes</p>
+<p class="text-text-light dark:text-text-dark tracking-light text-2xl font-bold leading-tight">12</p>
+</div>
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-card-light dark:bg-card-dark border border-alert/50 dark:border-alert">
+            <p class="text-alert text-sm font-medium leading-normal">Atrasadas</p>
+<p class="text-text-light dark:text-text-dark tracking-light text-2xl font-bold leading-tight">3</p>
+</div>
+</section>
+<!-- Filter Chips Section -->
+<section class="flex gap-3 px-4 pb-2 overflow-x-auto">
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-primary pl-4 pr-4 text-white">
+            <p class="text-sm font-semibold leading-normal">Todos</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark pl-4 pr-4 border border-border-light dark:border-border-dark">
+<div class="size-2 rounded-full bg-accent"></div>
+            <p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Pendientes</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark pl-4 pr-4 border border-border-light dark:border-border-dark">
+<div class="size-2 rounded-full bg-alert"></div>
+            <p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Atrasadas</p>
+</div>
+<div class="flex h-10 shrink-0 cursor-pointer items-center justify-center gap-x-2 rounded-full bg-card-light dark:bg-card-dark pl-4 pr-4 border border-border-light dark:border-border-dark">
+<div class="size-2 rounded-full bg-primary"></div>
+            <p class="text-text-light dark:text-text-dark text-sm font-medium leading-normal">Completadas</p>
+</div>
+</section>
+<!-- Delivery List -->
+<section class="flex flex-col gap-3 p-4 pt-2">
+<!-- Overdue Item -->
+<div class="flex gap-4 bg-card-light dark:bg-card-dark rounded-lg p-3 justify-between items-center border-l-4 border-alert">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-alert flex items-center justify-center rounded-lg bg-alert/10 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">
+                                warning
+                            </span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-text-light dark:text-text-dark text-base font-semibold leading-normal">Pedido #GG-12345</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Asignado a: Jane Doe</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Carrera 7 # 24-89, Centro, Bogotá</p>
+</div>
+</div>
+<div class="shrink-0 text-right">
+<p class="text-alert text-sm font-semibold leading-normal">Retrasado 5 min</p>
+</div>
+</div>
+<!-- Pending Item -->
+<div class="flex gap-4 bg-card-light dark:bg-card-dark rounded-lg p-3 justify-between items-center border-l-4 border-accent">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-accent flex items-center justify-center rounded-lg bg-accent/10 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">
+                                schedule
+                            </span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-text-light dark:text-text-dark text-base font-semibold leading-normal">Pedido #GG-67890</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Asignado a: John Smith</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Calle 72 # 10-20, Chapinero, Bogotá</p>
+</div>
+</div>
+<div class="shrink-0 text-right">
+<p class="text-accent text-sm font-semibold leading-normal">Entrega en 15 min</p>
+</div>
+</div>
+<!-- Completed Item -->
+<div class="flex gap-4 bg-card-light dark:bg-card-dark rounded-lg p-3 justify-between items-center border-l-4 border-primary">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">
+                                check_circle
+                            </span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-text-light dark:text-text-dark text-base font-semibold leading-normal">Pedido #GG-54321</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Asignado a: María García</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Carrera 15 # 88-45, Zona Rosa, Bogotá</p>
+</div>
+</div>
+<div class="shrink-0 text-right">
+<p class="text-primary text-sm font-semibold leading-normal">Completado</p>
+</div>
+</div>
+<!-- Another Pending Item -->
+<div class="flex gap-4 bg-card-light dark:bg-card-dark rounded-lg p-3 justify-between items-center border-l-4 border-accent">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-accent flex items-center justify-center rounded-lg bg-accent/10 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">
+                                schedule
+                            </span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-text-light dark:text-text-dark text-base font-semibold leading-normal">Pedido #GG-11223</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Asignado a: Sam Wilson</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Avenida El Dorado # 68-40, Barrios Unidos, Bogotá</p>
+</div>
+</div>
+<div class="shrink-0 text-right">
+<p class="text-accent text-sm font-semibold leading-normal">Entrega en 45 min</p>
+</div>
+</div>
+<!-- Another Completed Item -->
+<div class="flex gap-4 bg-card-light dark:bg-card-dark rounded-lg p-3 justify-between items-center border-l-4 border-primary">
+<div class="flex items-center gap-4 flex-1">
+<div class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
+<span class="material-symbols-outlined text-2xl">
+                                check_circle
+                            </span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-text-light dark:text-text-dark text-base font-semibold leading-normal">Pedido #GG-98765</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Asignado a: Emily Chen</p>
+<p class="text-text-light/70 dark:text-text-dark/70 text-sm font-normal leading-normal">Calle 85 # 13-45, Usaquén, Bogotá</p>
+</div>
+</div>
+<div class="shrink-0 text-right">
+<p class="text-primary text-sm font-semibold leading-normal">Completado</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

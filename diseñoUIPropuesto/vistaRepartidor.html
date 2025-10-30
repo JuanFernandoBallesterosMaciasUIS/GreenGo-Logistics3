@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mis entregas - GreenGo Logistics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4CAF50",
+              "background-light": "#F5F5F5",
+              "background-dark": "#102216",
+              "charcoal": "#333333",
+              "light-gray": "#F5F5F5",
+              "accent-blue": "#2196F3",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "1.25rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="flex size-12 shrink-0 items-center justify-start">
+<!-- Intentionally left blank for alignment -->
+</div>
+<h1 class="text-charcoal dark:text-light-gray text-xl font-bold leading-tight tracking-tight flex-1 text-center">Mis entregas</h1>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-transparent text-charcoal dark:text-light-gray gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined text-2xl">refresh</span>
+</button>
+</div>
+</div>
+<!-- Segmented Buttons -->
+<div class="flex px-4 py-3">
+<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-white has-[:checked]:dark:bg-charcoal has-[:checked]:shadow-md has-[:checked]:text-charcoal dark:has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-bold leading-normal transition-all duration-300">
+<span class="truncate">Pendientes</span>
+<input checked="" class="invisible w-0" name="delivery_status" type="radio" value="Pending"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-white has-[:checked]:dark:bg-charcoal has-[:checked]:shadow-md has-[:checked]:text-charcoal dark:has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-bold leading-normal transition-all duration-300">
+<span class="truncate">Completadas</span>
+<input class="invisible w-0" name="delivery_status" type="radio" value="Completed"/>
+</label>
+</div>
+</div>
+<main class="flex flex-col gap-4 p-4">
+<!-- Pending Deliveries Section -->
+<section class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 bg-white dark:bg-gray-900/50 p-4 rounded-lg shadow-sm">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 shrink-0 size-12">
+<span class="material-symbols-outlined text-charcoal dark:text-light-gray text-3xl">restaurant_menu</span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-charcoal dark:text-light-gray text-base font-bold leading-normal">Pedido #GG12345 - María García</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">Entrega antes de 2:30 p. m.</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Asignado a: Carlos López</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">De: Restaurante Andrés Carne de Res <br/> A: <span class="text-accent-blue font-medium">Carrera 7 # 24-89, Bogotá</span></p>
+</div>
+<button class="flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-primary bg-primary/20 text-primary transition-colors hover:bg-primary/30">
+<span class="material-symbols-outlined text-3xl">check</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4 bg-white dark:bg-gray-900/50 p-4 rounded-lg shadow-sm">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 shrink-0 size-12">
+<span class="material-symbols-outlined text-charcoal dark:text-light-gray text-3xl">local_cafe</span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-charcoal dark:text-light-gray text-base font-bold leading-normal">Pedido #GG67890 - John Doe</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">Entrega antes de 3:15 p. m.</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Asignado a: Ana Martínez</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">De: Café Paradiso <br/> A: <span class="text-accent-blue font-medium">Calle 72 # 10-20, Bogotá</span></p>
+</div>
+<button class="flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-primary bg-primary/20 text-primary transition-colors hover:bg-primary/30">
+<span class="material-symbols-outlined text-3xl">check</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4 bg-white dark:bg-gray-900/50 p-4 rounded-lg shadow-sm">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 shrink-0 size-12">
+<span class="material-symbols-outlined text-charcoal dark:text-light-gray text-3xl">package_2</span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-charcoal dark:text-light-gray text-base font-bold leading-normal">Pedido #GG98765 - Sam Lee</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal">Entrega antes de 4:00 p. m.</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Asignado a: Luis Rodríguez</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">De: Librería Nacional <br/> A: <span class="text-accent-blue font-medium">Carrera 15 # 88-45, Bogotá</span></p>
+</div>
+<button class="flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-primary bg-primary/20 text-primary transition-colors hover:bg-primary/30">
+<span class="material-symbols-outlined text-3xl">check</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Completed Deliveries Section -->
+<section class="flex flex-col gap-2">
+<h2 class="text-charcoal dark:text-light-gray text-lg font-bold leading-tight tracking-tight px-0 pb-2 pt-4">Completadas hoy</h2>
+<div class="flex flex-col gap-4 bg-white/70 dark:bg-gray-900/30 p-4 rounded-lg shadow-sm opacity-70">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center rounded-lg bg-primary/20 dark:bg-primary/30 shrink-0 size-12">
+<span class="material-symbols-outlined text-primary text-3xl">task_alt</span>
+</div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-gray-500 dark:text-gray-400 text-base font-medium leading-normal line-through">Pedido #GG54321 - Emily Ross</p>
+<p class="text-gray-400 dark:text-gray-500 text-sm font-normal leading-normal">Entregada a las 1:45 p. m.</p>
+<p class="text-gray-400 dark:text-gray-500 text-sm font-normal leading-normal">Asignado a: Sofia Hernández</p>
+<p class="text-gray-400 dark:text-gray-500 text-sm font-normal leading-normal line-through">De: Supermercado Éxito <br/>A: Avenida El Dorado # 68-40, Bogotá</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Empty State -->
+<!-- 
+      <section class="flex flex-col items-center justify-center gap-4 text-center p-8 mt-8 bg-white dark:bg-gray-900/50 rounded-lg">
+        <span class="material-symbols-outlined text-5xl text-primary">directions_bike</span>
+        <h3 class="text-xl font-bold text-charcoal dark:text-light-gray">¡Todo listo!</h3>
+        <p class="text-gray-500 dark:text-gray-400 max-w-xs">No hay entregas pendientes en este momento. ¡Tómate un descanso!</p>
+      </section>
+            -->
+</main>
+</div>
+</body></html>

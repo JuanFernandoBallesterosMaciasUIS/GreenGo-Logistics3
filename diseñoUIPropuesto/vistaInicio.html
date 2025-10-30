@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GreenGo Logistics - Selección de rol</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4CAF50",
+            "accent": "#FFC107",
+            "alert": "#F44336",
+            "background-light": "#F5F5F5",
+            "background-dark": "#1a1a1a",
+            "text-light": "#333333",
+            "text-dark": "#E0E0E0",
+            "card-light": "#FFFFFF",
+            "card-dark": "#2C2C2C",
+            "border-light": "#E0E0E0",
+            "border-dark": "#424242",
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem",
+            "xl": "2rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="flex h-full min-h-screen w-full flex-col p-6 sm:p-8">
+<header class="flex flex-col items-center text-center pt-8 pb-12">
+<div class="mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-primary/10">
+<span class="material-symbols-outlined text-5xl text-primary">
+          local_shipping
+        </span>
+</div>
+<h1 class="text-3xl font-bold tracking-tight">GreenGo Logistics</h1>
+<p class="mt-2 max-w-sm text-base text-text-light/70 dark:text-text-dark/70">
+        Entregas urbanas sostenibles, impulsadas por ti.
+      </p>
+</header>
+<main class="flex flex-1 flex-col items-center justify-center gap-6">
+<h2 class="text-xl font-semibold">Selecciona tu rol</h2>
+<a class="group w-full max-w-md rounded-xl border border-border-light bg-card-light p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg dark:border-border-dark dark:bg-card-dark dark:hover:border-primary" href="#">
+<div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+<span class="material-symbols-outlined text-4xl">
+            directions_bike
+          </span>
+</div>
+<h3 class="text-lg font-bold">Repartidor</h3>
+<p class="mt-1 text-sm text-text-light/70 dark:text-text-dark/70">
+          Gestiona tus entregas y consulta tus ganancias.
+        </p>
+</a>
+<a class="group w-full max-w-md rounded-xl border border-border-light bg-card-light p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg dark:border-border-dark dark:bg-card-dark dark:hover:border-primary" href="#">
+<div class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+<span class="material-symbols-outlined text-4xl">
+            monitoring
+          </span>
+</div>
+<h3 class="text-lg font-bold">Supervisor</h3>
+<p class="mt-1 text-sm text-text-light/70 dark:text-text-dark/70">
+          Supervisa todas las entregas en vivo y gestiona el equipo.
+        </p>
+</a>
+</main>
+<footer class="py-4 text-center">
+        <p class="text-xs text-text-light/50 dark:text-text-dark/50">
+        © 2024 GreenGo Logistics. Todos los derechos reservados.
+      </p>
+</footer>
+</div>
+
+</body></html>
