@@ -2,7 +2,7 @@
 
 ## Video Explicativo
 
-[![Video de demostración de GreenGo Logistics](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Video de demostración de GreenGo Logistics](https://img.youtube.com/vi/YZpQ85K6Qas/0.jpg)](https://www.youtube.com/watch?v=YZpQ85K6Qas)
 
 *Haz clic en la imagen para ver una demostración en video de la aplicación*
 
