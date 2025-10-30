@@ -236,7 +236,7 @@ class _SupervisorScreenState extends State<SupervisorScreen> {
   }
 }
 
-class _StatCard extends StatelessWidget {
+class _StatCard extends StatefulWidget {
   final String label;
   final String value;
   final Color? color;
@@ -250,40 +250,101 @@ class _StatCard extends StatelessWidget {
   });
 
   @override
+  State<_StatCard> createState() => _StatCardState();
+}
+
+class _StatCardState extends State<_StatCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _onHover(bool value) {
+    setState(() => _isHovered = value);
+    if (value) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: theme.colorScheme.surface,
-        border: Border.all(
-          color: borderColor ??
-              (theme.brightness == Brightness.light
-                  ? const Color(0xFFE0E0E0)
-                  : const Color(0xFF424242)),
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: MouseRegion(
+        onEnter: (_) => _onHover(true),
+        onExit: (_) => _onHover(false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: theme.colorScheme.surface,
+            border: Border.all(
+              color: widget.borderColor ??
+                  (theme.brightness == Brightness.light
+                      ? const Color(0xFFE0E0E0)
+                      : const Color(0xFF424242)),
+            ),
+            boxShadow: _isHovered
+                ? [
+                    BoxShadow(
+                      color: (widget.color ?? theme.colorScheme.primary)
+                          .withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.label,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: widget.color?.withOpacity(0.8) ??
+                      theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                widget.value,
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: color?.withOpacity(0.8) ??
-                  theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: theme.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -308,7 +369,8 @@ class _FilterChip extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -322,6 +384,15 @@ class _FilterChip extends StatelessWidget {
                     ? const Color(0xFFE0E0E0)
                     : const Color(0xFF424242)),
           ),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: theme.colorScheme.primary.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
+              : null,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -351,15 +422,53 @@ class _FilterChip extends StatelessWidget {
   }
 }
 
-class _SupervisorDeliveryCard extends StatelessWidget {
+class _SupervisorDeliveryCard extends StatefulWidget {
   final Delivery delivery;
 
   const _SupervisorDeliveryCard({required this.delivery});
 
+  @override
+  State<_SupervisorDeliveryCard> createState() =>
+      _SupervisorDeliveryCardState();
+}
+
+class _SupervisorDeliveryCardState extends State<_SupervisorDeliveryCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.02).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _onHover(bool value) {
+    setState(() => _isHovered = value);
+    if (value) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
   Color _getStatusColor() {
-    if (delivery.status == DeliveryStatus.completed) {
+    if (widget.delivery.status == DeliveryStatus.completed) {
       return AppTheme.primary;
-    } else if (delivery.isOverdue) {
+    } else if (widget.delivery.isOverdue) {
       return AppTheme.alert;
     } else {
       return AppTheme.accent;
@@ -367,9 +476,9 @@ class _SupervisorDeliveryCard extends StatelessWidget {
   }
 
   IconData _getStatusIcon() {
-    if (delivery.status == DeliveryStatus.completed) {
+    if (widget.delivery.status == DeliveryStatus.completed) {
       return Icons.check_circle_rounded;
-    } else if (delivery.isOverdue) {
+    } else if (widget.delivery.isOverdue) {
       return Icons.warning_rounded;
     } else {
       return Icons.schedule_rounded;
@@ -381,99 +490,109 @@ class _SupervisorDeliveryCard extends StatelessWidget {
     final theme = Theme.of(context);
     final statusColor = _getStatusColor();
 
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: theme.colorScheme.surface,
-        border: Border.all(
-          color: statusColor.withOpacity(0.3),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: MouseRegion(
+        onEnter: (_) => _onHover(true),
+        onExit: (_) => _onHover(false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: theme.colorScheme.surface,
+            border: Border.all(
+              color: statusColor.withOpacity(0.3),
+              width: 1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered
+                    ? statusColor.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: _isHovered ? 8 : 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Indicador de color a la izquierda
-            Container(
-              width: 4,
-              decoration: BoxDecoration(
-                color: statusColor,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Icono de estado
-            Container(
-              height: 48,
-              width: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: statusColor.withOpacity(0.1),
-              ),
-              child: Icon(
-                _getStatusIcon(),
-                color: statusColor,
-                size: 28,
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Información del pedido
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Pedido #${delivery.id}',
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Asignado a: ${delivery.deliveryPerson}',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color:
-                          theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    delivery.toLocation,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color:
-                          theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            // Estado
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  delivery.statusText,
-                  style: theme.textTheme.bodySmall?.copyWith(
+                // Indicador de color a la izquierda
+                Container(
+                  width: 4,
+                  decoration: BoxDecoration(
                     color: statusColor,
-                    fontWeight: FontWeight.bold,
+                    borderRadius: BorderRadius.circular(2),
                   ),
-                  textAlign: TextAlign.end,
+                ),
+                const SizedBox(width: 12),
+                // Icono de estado
+                Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: statusColor.withOpacity(0.1),
+                  ),
+                  child: Icon(
+                    _getStatusIcon(),
+                    color: statusColor,
+                    size: 28,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Información del pedido
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pedido #${widget.delivery.id}',
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Asignado a: ${widget.delivery.deliveryPerson}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.textTheme.bodyMedium?.color
+                              ?.withOpacity(0.7),
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        widget.delivery.toLocation,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.textTheme.bodyMedium?.color
+                              ?.withOpacity(0.7),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // Estado
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      widget.delivery.statusText,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: statusColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
