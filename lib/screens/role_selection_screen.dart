@@ -82,15 +82,6 @@ class RoleSelectionScreen extends StatelessWidget {
                 },
               ),
               const Spacer(),
-              // Footer
-              Text(
-                '© 2024 GreenGo Logistics. Todos los derechos reservados.',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.textTheme.bodySmall?.color?.withOpacity(0.5),
-                ),
-              ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

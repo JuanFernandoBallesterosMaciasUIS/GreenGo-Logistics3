@@ -1,26 +1,26 @@
 # GreenGo Logistics - Aplicación Flutter
 
-## 📱 Descripción
+## Descripción
 
 GreenGo Logistics es una aplicación de gestión de entregas sostenibles desarrollada en Flutter. Permite a los repartidores en bicicleta gestionar sus entregas y a los supervisores monitorear el progreso en tiempo real.
 
-## ✨ Características
+## Características
 
 ### Vista Repartidor
-- ✅ Lista de entregas pendientes y completadas
-- ✅ Marcar entregas como completadas con un solo toque
-- ✅ Información detallada de cada pedido (origen, destino, cliente, hora límite)
-- ✅ Interfaz con segmented buttons para filtrar pendientes/completadas
-- ✅ Estados vacíos informativos
+- Confirmado: Lista de entregas pendientes y completadas
+- Confirmado: Marcar entregas como completadas con un solo toque
+- Confirmado: Información detallada de cada pedido (origen, destino, cliente, hora límite)
+- Confirmado: Interfaz con segmented buttons para filtrar pendientes/completadas
+- Confirmado: Estados vacíos informativos
 
 ### Vista Supervisor
-- ✅ Dashboard con estadísticas en tiempo real (Total, Pendientes, Atrasadas)
-- ✅ Lista completa de todas las entregas con estados visuales
-- ✅ Filtros por estado: Todos, Pendientes, Atrasadas, Completadas
-- ✅ Indicadores de color para identificar rápidamente el estado
-- ✅ Actualización en tiempo real mediante Provider
+- Confirmado: Dashboard con estadísticas en tiempo real (Total, Pendientes, Atrasadas)
+- Confirmado: Lista completa de todas las entregas con estados visuales
+- Confirmado: Filtros por estado: Todos, Pendientes, Atrasadas, Completadas
+- Confirmado: Indicadores de color para identificar rápidamente el estado
+- Confirmado: Actualización en tiempo real mediante Provider
 
-## 🎨 Diseño
+## Diseño
 
 El diseño sigue la propuesta original con:
 - **Colores:**
@@ -32,7 +32,7 @@ El diseño sigue la propuesta original con:
 - **Fuente:** Manrope (simulada con la fuente del sistema)
 - **Bordes redondeados** y diseño moderno
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ```
 lib/
@@ -49,7 +49,7 @@ lib/
 └── main.dart                   # Punto de entrada de la aplicación
 ```
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Requisitos previos
 - Flutter SDK (>=3.0.0)
@@ -80,30 +80,30 @@ lib/
    flutter run -d chrome
    ```
 
-## 📦 Dependencias
+## Dependencias
 
 - `provider: ^6.1.1` - Gestión de estado
 - `intl: ^0.19.0` - Formateo de fechas y horas
 - `cupertino_icons: ^1.0.2` - Iconos de iOS
 
-## 🎯 Cumplimiento de Requisitos
+## Cumplimiento de Requisitos
 
-### Requisitos Mínimos ✅
-- ✅ **UI básica:** Pantallas para repartidor y supervisor con ListView, Cards, Icons
-- ✅ **Datos simulados:** Lista local con datos de prueba gestionados con Provider
-- ✅ **Interacción real:** Marcar entregas se refleja visualmente en tiempo real
-- ✅ **Diseño visual:** ThemeData personalizado, colores consistentes, iconos Material
+### Requisitos Mínimos
+- Confirmado: **UI básica:** Pantallas para repartidor y supervisor con ListView, Cards, Icons
+- Confirmado: **Datos simulados:** Lista local con datos de prueba gestionados con Provider
+- Confirmado: **Interacción real:** Marcar entregas se refleja visualmente en tiempo real
+- Confirmado: **Diseño visual:** ThemeData personalizado, colores consistentes, iconos Material
 
-### Extras Implementados 🌟
-- ✅ Modo supervisor con estadísticas en tiempo real
-- ✅ Sistema de filtros en vista supervisor (Todos, Pendientes, Atrasadas, Completadas)
-- ✅ Segmented buttons en vista repartidor
-- ✅ Porcentaje de entregas completadas (en el provider)
-- ✅ Gestión de estado reactiva con Provider
-- ✅ Soporte para tema claro y oscuro
-- ✅ Diseño responsive y moderno
+### Extras Implementados
+- Confirmado: Modo supervisor con estadísticas en tiempo real
+- Confirmado: Sistema de filtros en vista supervisor (Todos, Pendientes, Atrasadas, Completadas)
+- Confirmado: Segmented buttons en vista repartidor
+- Confirmado: Porcentaje de entregas completadas (en el provider)
+- Confirmado: Gestión de estado reactiva con Provider
+- Confirmado: Soporte para tema claro y oscuro
+- Confirmado: Diseño responsive y moderno
 
-## 🔄 Gestión de Estado
+## Gestión de Estado
 
 La aplicación utiliza **Provider** para la gestión de estado, permitiendo:
 - Sincronización en tiempo real entre vistas
@@ -111,7 +111,7 @@ La aplicación utiliza **Provider** para la gestión de estado, permitiendo:
 - Cálculos automáticos de estadísticas
 - Separación clara entre lógica de negocio y UI
 
-## 📊 Datos de Prueba
+## Datos de Prueba
 
 La aplicación incluye 7 entregas de prueba con diferentes estados:
 - 4 entregas pendientes
@@ -127,10 +127,6 @@ Cada entrega tiene:
 - Categoría (restaurante, café, paquete)
 - Estado (pendiente, completado, atrasado)
 
-## 👥 Equipo
+## Equipo
 
 Proyecto desarrollado para el reto de Flutter de GreenGo Logistics
-
-## 📄 Licencia
-
-© 2024 GreenGo Logistics. Todos los derechos reservados.
