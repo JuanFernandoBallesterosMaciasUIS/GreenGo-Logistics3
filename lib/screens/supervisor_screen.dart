@@ -64,34 +64,115 @@ class _SupervisorScreenState extends State<SupervisorScreen> {
           // Stats Section
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: _StatCard(
-                    label: 'Total',
-                    value: provider.totalDeliveries.toString(),
-                    color: theme.textTheme.bodyMedium?.color,
-                  ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isSmallScreen = constraints.maxWidth < 400;
+                final cardWidth = isSmallScreen
+                    ? (constraints.maxWidth - 36) / 2
+                    : (constraints.maxWidth - 48) / 4;
+
+                return Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    SizedBox(
+                      width: cardWidth,
+                      child: _StatCard(
+                        label: 'Total',
+                        value: provider.totalDeliveries.toString(),
+                        color: theme.textTheme.bodyMedium?.color,
+                      ),
+                    ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: _StatCard(
+                        label: 'Pendientes',
+                        value: provider.pendingCount.toString(),
+                        color: AppTheme.accent,
+                        borderColor: AppTheme.accent,
+                      ),
+                    ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: _StatCard(
+                        label: 'Atrasadas',
+                        value: provider.overdueCount.toString(),
+                        color: AppTheme.alert,
+                        borderColor: AppTheme.alert,
+                      ),
+                    ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: _StatCard(
+                        label: 'Completadas',
+                        value: provider.completedCount.toString(),
+                        color: AppTheme.primary,
+                        borderColor: AppTheme.primary,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          // Progress Section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: AppTheme.primary.withOpacity(0.1),
+                border: Border.all(
+                  color: AppTheme.primary.withOpacity(0.3),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _StatCard(
-                    label: 'Pendientes',
-                    value: provider.pendingCount.toString(),
-                    color: AppTheme.accent,
-                    borderColor: AppTheme.accent,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Progreso de entregas',
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppTheme.primary,
+                        ),
+                        child: Text(
+                          '${provider.completedCount}/${provider.totalDeliveries} (${provider.completionPercentage.toStringAsFixed(1)}%)',
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _StatCard(
-                    label: 'Atrasadas',
-                    value: provider.overdueCount.toString(),
-                    color: AppTheme.alert,
-                    borderColor: AppTheme.alert,
+                  const SizedBox(height: 12),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      value: provider.completionPercentage / 100,
+                      minHeight: 12,
+                      backgroundColor: theme.brightness == Brightness.light
+                          ? Colors.grey[300]
+                          : Colors.grey[700],
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(AppTheme.primary),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           // Filter chips
