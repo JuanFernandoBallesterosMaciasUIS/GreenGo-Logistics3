@@ -117,62 +117,63 @@ class _SupervisorScreenState extends State<SupervisorScreen> {
           ),
           // Progress Section
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppTheme.primary.withOpacity(0.1),
-                border: Border.all(
-                  color: AppTheme.primary.withOpacity(0.3),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Progreso de entregas',
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Progreso de entregas',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppTheme.primary.withOpacity(0.1),
+                      ),
+                      child: Text(
+                        '${provider.completionPercentage.toStringAsFixed(0)}%',
                         style: theme.textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
                           color: AppTheme.primary,
-                        ),
-                        child: Text(
-                          '${provider.completedCount}/${provider.totalDeliveries} (${provider.completionPercentage.toStringAsFixed(1)}%)',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: LinearProgressIndicator(
-                      value: provider.completionPercentage / 100,
-                      minHeight: 12,
-                      backgroundColor: theme.brightness == Brightness.light
-                          ? Colors.grey[300]
-                          : Colors.grey[700],
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(AppTheme.primary),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                // Progress Bar
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: LinearProgressIndicator(
+                    value: provider.completionPercentage / 100,
+                    minHeight: 8,
+                    backgroundColor: theme.brightness == Brightness.light
+                        ? Colors.grey[200]
+                        : Colors.grey[800],
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppTheme.primary,
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '${provider.completedCount} de ${provider.totalDeliveries} entregas completadas',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                  ),
+                ),
+              ],
             ),
           ),
           // Filter chips
