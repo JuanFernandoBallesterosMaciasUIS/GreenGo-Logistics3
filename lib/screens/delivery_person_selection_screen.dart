@@ -63,10 +63,9 @@ class _DeliveryPersonSelectionScreenState
         title: const Text('Selecciona tu perfil'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         child: Column(
           children: [
-            const SizedBox(height: 32),
             // Header animado
             SlideTransition(
               position: _headerSlideAnimation,
@@ -76,45 +75,49 @@ class _DeliveryPersonSelectionScreenState
                   children: [
                     // Icono
                     Container(
-                      height: 80,
-                      width: 80,
+                      height: 64,
+                      width: 64,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                         color: theme.colorScheme.primary.withOpacity(0.1),
                       ),
                       child: Icon(
                         Icons.pedal_bike_rounded,
-                        size: 48,
+                        size: 40,
                         color: theme.colorScheme.primary,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
                     Text(
                       '¿Quién eres?',
-                      style: theme.textTheme.headlineMedium,
+                      style: theme.textTheme.headlineSmall,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Selecciona tu nombre para ver tus entregas',
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color:
-                            theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Text(
+                        'Selecciona tu nombre para ver tus entregas',
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.textTheme.bodySmall?.color
+                              ?.withOpacity(0.7),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 24),
             // Lista de repartidores con animación escalonada
             Expanded(
               child: ListView.builder(
+                shrinkWrap: true,
                 itemCount: deliveryPersons.length,
                 itemBuilder: (context, index) {
                   final person = deliveryPersons[index];
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _DeliveryPersonCard(
                       name: person,
                       index: index,
@@ -235,9 +238,10 @@ class _DeliveryPersonCardState extends State<_DeliveryPersonCard>
               onTap: widget.onTap,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(14),
                   color: theme.colorScheme.surface,
                   border: Border.all(
                     color: theme.brightness == Brightness.light
@@ -258,8 +262,8 @@ class _DeliveryPersonCardState extends State<_DeliveryPersonCard>
                 child: Row(
                   children: [
                     Container(
-                      height: 56,
-                      width: 56,
+                      height: 48,
+                      width: 48,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: theme.colorScheme.primary.withOpacity(0.2),
@@ -267,19 +271,20 @@ class _DeliveryPersonCardState extends State<_DeliveryPersonCard>
                       child: Icon(
                         Icons.person_rounded,
                         color: theme.colorScheme.primary,
-                        size: 28,
+                        size: 24,
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Text(
                         widget.name,
-                        style: theme.textTheme.titleMedium,
+                        style: theme.textTheme.bodyLarge,
                       ),
                     ),
                     Icon(
                       Icons.arrow_forward_rounded,
                       color: theme.colorScheme.primary,
+                      size: 20,
                     ),
                   ],
                 ),
