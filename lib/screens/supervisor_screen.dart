@@ -29,9 +29,8 @@ class _SupervisorScreenState extends State<SupervisorScreen> {
     List<Delivery> filteredDeliveries;
     switch (_selectedFilter) {
       case FilterType.pending:
-        filteredDeliveries = provider.pendingDeliveries
-            .where((d) => !d.isOverdue)
-            .toList();
+        filteredDeliveries =
+            provider.pendingDeliveries.where((d) => !d.isOverdue).toList();
         break;
       case FilterType.overdue:
         filteredDeliveries = provider.overdueDeliveries;
@@ -112,21 +111,24 @@ class _SupervisorScreenState extends State<SupervisorScreen> {
                   label: 'Pendientes',
                   isSelected: _selectedFilter == FilterType.pending,
                   indicatorColor: AppTheme.accent,
-                  onTap: () => setState(() => _selectedFilter = FilterType.pending),
+                  onTap: () =>
+                      setState(() => _selectedFilter = FilterType.pending),
                 ),
                 const SizedBox(width: 12),
                 _FilterChip(
                   label: 'Atrasadas',
                   isSelected: _selectedFilter == FilterType.overdue,
                   indicatorColor: AppTheme.alert,
-                  onTap: () => setState(() => _selectedFilter = FilterType.overdue),
+                  onTap: () =>
+                      setState(() => _selectedFilter = FilterType.overdue),
                 ),
                 const SizedBox(width: 12),
                 _FilterChip(
                   label: 'Completadas',
                   isSelected: _selectedFilter == FilterType.completed,
                   indicatorColor: AppTheme.primary,
-                  onTap: () => setState(() => _selectedFilter = FilterType.completed),
+                  onTap: () =>
+                      setState(() => _selectedFilter = FilterType.completed),
                 ),
               ],
             ),
@@ -175,9 +177,10 @@ class _StatCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         color: theme.colorScheme.surface,
         border: Border.all(
-          color: borderColor ?? (theme.brightness == Brightness.light
-              ? const Color(0xFFE0E0E0)
-              : const Color(0xFF424242)),
+          color: borderColor ??
+              (theme.brightness == Brightness.light
+                  ? const Color(0xFFE0E0E0)
+                  : const Color(0xFF424242)),
         ),
       ),
       child: Column(
@@ -355,14 +358,16 @@ class _SupervisorDeliveryCard extends StatelessWidget {
                   Text(
                     'Asignado a: ${delivery.deliveryPerson}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                      color:
+                          theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     delivery.toLocation,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                      color:
+                          theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

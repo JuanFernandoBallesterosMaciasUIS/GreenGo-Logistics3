@@ -19,9 +19,9 @@ class _DeliveryPersonScreenState extends State<DeliveryPersonScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = context.watch<DeliveryProvider>();
-    
-    final displayDeliveries = _showPending 
-        ? provider.pendingDeliveries 
+
+    final displayDeliveries = _showPending
+        ? provider.pendingDeliveries
         : provider.completedDeliveries;
 
     return Scaffold(
@@ -122,9 +122,7 @@ class _SegmentButton extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: isSelected
-              ? theme.colorScheme.surface
-              : Colors.transparent,
+          color: isSelected ? theme.colorScheme.surface : Colors.transparent,
           boxShadow: isSelected
               ? [
                   BoxShadow(
@@ -249,8 +247,10 @@ class _DeliveryCard extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
-                      decoration: isCompleted ? TextDecoration.lineThrough : null,
+                      color:
+                          theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
+                      decoration:
+                          isCompleted ? TextDecoration.lineThrough : null,
                     ),
                     children: [
                       TextSpan(text: 'De: ${delivery.fromLocation}\n'),

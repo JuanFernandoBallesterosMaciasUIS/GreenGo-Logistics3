@@ -6,13 +6,13 @@ class AppTheme {
   static const Color accent = Color(0xFFFFC107);
   static const Color alert = Color(0xFFF44336);
   static const Color accentBlue = Color(0xFF2196F3);
-  
+
   // Light theme colors
   static const Color backgroundLight = Color(0xFFF5F5F5);
   static const Color textLight = Color(0xFF333333);
   static const Color cardLight = Color(0xFFFFFFFF);
   static const Color borderLight = Color(0xFFE0E0E0);
-  
+
   // Dark theme colors
   static const Color backgroundDark = Color(0xFF1a1a1a);
   static const Color textDark = Color(0xFFE0E0E0);

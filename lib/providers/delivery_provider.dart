@@ -74,13 +74,11 @@ class DeliveryProvider with ChangeNotifier {
 
   List<Delivery> get allDeliveries => List.unmodifiable(_deliveries);
 
-  List<Delivery> get pendingDeliveries => _deliveries
-      .where((d) => d.status == DeliveryStatus.pending)
-      .toList();
+  List<Delivery> get pendingDeliveries =>
+      _deliveries.where((d) => d.status == DeliveryStatus.pending).toList();
 
-  List<Delivery> get completedDeliveries => _deliveries
-      .where((d) => d.status == DeliveryStatus.completed)
-      .toList();
+  List<Delivery> get completedDeliveries =>
+      _deliveries.where((d) => d.status == DeliveryStatus.completed).toList();
 
   List<Delivery> get overdueDeliveries => _deliveries
       .where((d) => d.isOverdue && d.status == DeliveryStatus.pending)
@@ -97,9 +95,7 @@ class DeliveryProvider with ChangeNotifier {
   }
 
   List<Delivery> getDeliveriesForPerson(String personName) {
-    return _deliveries
-        .where((d) => d.deliveryPerson == personName)
-        .toList();
+    return _deliveries.where((d) => d.deliveryPerson == personName).toList();
   }
 
   void markDeliveryAsCompleted(String deliveryId) {

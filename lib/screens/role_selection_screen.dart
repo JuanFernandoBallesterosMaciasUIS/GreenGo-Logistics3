@@ -69,7 +69,8 @@ class RoleSelectionScreen extends StatelessWidget {
               _RoleCard(
                 icon: Icons.analytics_rounded,
                 title: 'Supervisor',
-                description: 'Supervisa todas las entregas en vivo y gestiona el equipo.',
+                description:
+                    'Supervisa todas las entregas en vivo y gestiona el equipo.',
                 onTap: () {
                   Navigator.push(
                     context,
