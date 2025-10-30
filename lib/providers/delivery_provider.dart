@@ -6,7 +6,7 @@ class DeliveryProvider with ChangeNotifier {
     Delivery(
       id: 'GG-12345',
       customerName: 'María García',
-      deliveryPerson: 'Carlos López',
+      deliveryPerson: 'Diego López',
       fromLocation: 'Restaurante Andrés Carne de Res',
       toLocation: 'Carrera 7 # 24-89, Bogotá',
       deadline: DateTime.now().add(const Duration(minutes: 30)),
@@ -15,7 +15,7 @@ class DeliveryProvider with ChangeNotifier {
     Delivery(
       id: 'GG-67890',
       customerName: 'John Doe',
-      deliveryPerson: 'Ana Martínez',
+      deliveryPerson: 'Juan Ballesteros',
       fromLocation: 'Café Paradiso',
       toLocation: 'Calle 72 # 10-20, Bogotá',
       deadline: DateTime.now().add(const Duration(minutes: 45)),
@@ -44,7 +44,7 @@ class DeliveryProvider with ChangeNotifier {
     Delivery(
       id: 'GG-11223',
       customerName: 'Sam Wilson',
-      deliveryPerson: 'Carlos López',
+      deliveryPerson: 'Diego López',
       fromLocation: 'Tienda D1',
       toLocation: 'Avenida El Dorado # 68-40, Barrios Unidos, Bogotá',
       deadline: DateTime.now().add(const Duration(minutes: 75)),
@@ -53,7 +53,7 @@ class DeliveryProvider with ChangeNotifier {
     Delivery(
       id: 'GG-22334',
       customerName: 'Emily Chen',
-      deliveryPerson: 'Ana Martínez',
+      deliveryPerson: 'Juan Ballesteros',
       fromLocation: 'Restaurante Wok',
       toLocation: 'Calle 85 # 13-45, Usaquén, Bogotá',
       deadline: DateTime.now().subtract(const Duration(minutes: 30)),

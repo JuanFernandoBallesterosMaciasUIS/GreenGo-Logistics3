@@ -13,8 +13,8 @@ class _DeliveryPersonSelectionScreenState
     extends State<DeliveryPersonSelectionScreen> {
   // Los tres repartidores disponibles
   static const List<String> deliveryPersons = [
-    'Carlos López',
-    'Ana Martínez',
+    'Diego López',
+    'Juan Ballesteros',
     'Luis Rodríguez',
   ];
 
