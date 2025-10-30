@@ -31,11 +31,14 @@ class _DeliveryPersonSelectionScreenState
     );
 
     _headerFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _headerAnimationController, curve: Curves.easeInOut),
+      CurvedAnimation(
+          parent: _headerAnimationController, curve: Curves.easeInOut),
     );
 
-    _headerSlideAnimation = Tween<Offset>(begin: const Offset(0, -0.5), end: Offset.zero).animate(
-      CurvedAnimation(parent: _headerAnimationController, curve: Curves.easeOutCubic),
+    _headerSlideAnimation =
+        Tween<Offset>(begin: const Offset(0, -0.5), end: Offset.zero).animate(
+      CurvedAnimation(
+          parent: _headerAnimationController, curve: Curves.easeOutCubic),
     );
 
     _headerAnimationController.forward();
@@ -95,7 +98,8 @@ class _DeliveryPersonSelectionScreenState
                       'Selecciona tu nombre para ver tus entregas',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                        color:
+                            theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
                       ),
                     ),
                   ],
@@ -170,11 +174,14 @@ class _DeliveryPersonCardState extends State<_DeliveryPersonCard>
     );
 
     _entryFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _entryAnimationController, curve: Curves.easeInOut),
+      CurvedAnimation(
+          parent: _entryAnimationController, curve: Curves.easeInOut),
     );
 
-    _entrySlideAnimation = Tween<Offset>(begin: const Offset(0.5, 0), end: Offset.zero).animate(
-      CurvedAnimation(parent: _entryAnimationController, curve: Curves.easeOutCubic),
+    _entrySlideAnimation =
+        Tween<Offset>(begin: const Offset(0.5, 0), end: Offset.zero).animate(
+      CurvedAnimation(
+          parent: _entryAnimationController, curve: Curves.easeOutCubic),
     );
 
     // Animación de hover
@@ -184,7 +191,8 @@ class _DeliveryPersonCardState extends State<_DeliveryPersonCard>
     );
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
-      CurvedAnimation(parent: _hoverAnimationController, curve: Curves.easeInOut),
+      CurvedAnimation(
+          parent: _hoverAnimationController, curve: Curves.easeInOut),
     );
 
     // Iniciar animación de entrada con delay escalonado
@@ -241,7 +249,8 @@ class _DeliveryPersonCardState extends State<_DeliveryPersonCard>
                       color: _hoverAnimationController.isAnimating
                           ? theme.colorScheme.primary.withOpacity(0.2)
                           : Colors.black.withOpacity(0.05),
-                      blurRadius: _hoverAnimationController.isAnimating ? 12 : 4,
+                      blurRadius:
+                          _hoverAnimationController.isAnimating ? 12 : 4,
                       offset: const Offset(0, 2),
                     ),
                   ],
