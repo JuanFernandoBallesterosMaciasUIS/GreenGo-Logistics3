@@ -219,7 +219,7 @@ class _DeliveryCard extends StatelessWidget {
                       : Colors.grey[800],
             ),
             child: Icon(
-              isCompleted ? Icons.task_alt_rounded : _getCategoryIcon(),
+              _getCategoryIcon(),
               color: isCompleted ? AppTheme.primary : theme.iconTheme.color,
               size: 28,
             ),
@@ -292,15 +292,15 @@ class _DeliveryCard extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: isCompleted
                     ? AppTheme.primary
-                    : AppTheme.primary.withOpacity(0.2),
+                    : Colors.grey[300],
                 border: Border.all(
-                  color: AppTheme.primary,
+                  color: isCompleted ? AppTheme.primary : Colors.grey[400]!,
                   width: 2,
                 ),
               ),
               child: Icon(
                 Icons.check_rounded,
-                color: isCompleted ? Colors.white : AppTheme.primary,
+                color: isCompleted ? Colors.white : Colors.grey[600],
                 size: 28,
               ),
             ),
