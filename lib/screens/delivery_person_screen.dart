@@ -179,31 +179,40 @@ class _DeliveryCardState extends State<_DeliveryCard>
   late AnimationController _completeAnimationController;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _rotateAnimation;
+  late bool _wasCompleted;
 
   @override
   void initState() {
     super.initState();
+    // Guardamos el estado inicial para determinar la dirección correcta del slide
+    _wasCompleted = widget.delivery.status == DeliveryStatus.completed;
+
     // Animación de completado solo con slide y rotación del botón
     _completeAnimationController = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
 
-    // Determinamos la dirección del slide basado en el estado actual
-    final isCurrentlyCompleted =
-        widget.delivery.status == DeliveryStatus.completed;
-    final beginOffset =
-        isCurrentlyCompleted ? const Offset(-1.0, 0.0) : const Offset(1.0, 0.0);
-
-    _slideAnimation =
-        Tween<Offset>(begin: Offset.zero, end: beginOffset).animate(
-      CurvedAnimation(
-          parent: _completeAnimationController, curve: Curves.easeInOut),
-    );
+    _updateSlideAnimation();
 
     _rotateAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
           parent: _completeAnimationController, curve: Curves.elasticOut),
+    );
+  }
+
+  void _updateSlideAnimation() {
+    // La dirección del slide depende de si estamos completando o desmarcando:
+    // - Si _wasCompleted es false (es pendiente): desliza a la DERECHA (Offset.x = 1.0)
+    // - Si _wasCompleted es true (es completada): desliza a la IZQUIERDA (Offset.x = -1.0)
+    final slideDirection = _wasCompleted
+        ? const Offset(-1.0, 0.0) // Izquierda para desmarcar
+        : const Offset(1.0, 0.0); // Derecha para completar
+
+    _slideAnimation =
+        Tween<Offset>(begin: Offset.zero, end: slideDirection).animate(
+      CurvedAnimation(
+          parent: _completeAnimationController, curve: Curves.easeInOut),
     );
   }
 
@@ -227,8 +236,16 @@ class _DeliveryCardState extends State<_DeliveryCard>
   }
 
   void _handleComplete() {
+    // Antes de animar, actualizamos la dirección para la siguiente acción
+    // porque después de this.onComplete(), el estado cambiará
+    final currentlyCompleted =
+        widget.delivery.status == DeliveryStatus.completed;
+
     _completeAnimationController.forward().then((_) {
       widget.onComplete();
+      // Después del cambio de estado, invertimos _wasCompleted para la próxima animación
+      _wasCompleted = !currentlyCompleted;
+      _updateSlideAnimation();
       _completeAnimationController.reset();
     });
   }
